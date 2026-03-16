@@ -1,0 +1,12 @@
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuthStore } from '@features/auth/store/useAuthStore';
+
+export function PublicRoute() {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <Outlet />;
+}
+
+export function PrivateRoute() {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+}
